@@ -395,22 +395,22 @@ export default class NeoVis {
 								}
 							},
 							physics: { // TODO: adaptive physics settings based on size of graph rendered
-								// enabled: true,
+								enabled: false,
 								// timestep: 0.5,
 								// stabilization: {
 								//     iterations: 10
 								// }
 
-								adaptiveTimestep: true,
+								// adaptiveTimestep: true,
 								// barnesHut: {
 								//     gravitationalConstant: -8000,
 								//     springConstant: 0.04,
 								//     springLength: 95
 								// },
-								stabilization: {
-									iterations: 200,
-									fit: true
-								}
+								// stabilization: {
+								// 	iterations: 200,
+								// 	fit: true
+								// }
 							}
 						};
 
@@ -440,12 +440,12 @@ export default class NeoVis {
 						this._network = new vis.Network(container, this._data, options);
 					}
 					this._consoleLog('completed');
-					setTimeout(
-						() => {
-							this._network.stopSimulation();
-						},
-						10000
-					);
+					// setTimeout(
+					// 	() => {
+					// 		this._network.stopSimulation();
+					// 	},
+					// 	10000
+					// );
 					this._events.generateEvent(CompletionEvent, { record_count: recordCount });
 
 					let neoVis = this;
