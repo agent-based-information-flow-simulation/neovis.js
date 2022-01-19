@@ -371,49 +371,7 @@ export default class NeoVis {
 						this._data.nodes.update(Object.values(this._nodes));
 						this._data.edges.update(Object.values(this._edges));
 					} else {
-						let options = {
-							nodes: {
-								//shape: 'dot',
-								font: {
-									size: 26,
-									strokeWidth: 7
-								},
-								scaling: {
-								}
-							},
-							edges: {
-								arrows: {
-									to: { enabled: this._config.arrows || false } // FIXME: handle default value
-								},
-								length: 200
-							},
-							layout: {
-								improvedLayout: false,
-								hierarchical: {
-									enabled: this._config.hierarchical || false,
-									sortMethod: this._config.hierarchical_sort_method || 'hubsize'
-								}
-							},
-							physics: { // TODO: adaptive physics settings based on size of graph rendered
-								enabled: false,
-								// timestep: 0.5,
-								// stabilization: {
-								//     iterations: 10
-								// }
-
-								// adaptiveTimestep: true,
-								// barnesHut: {
-								//     gravitationalConstant: -8000,
-								//     springConstant: 0.04,
-								//     springLength: 95
-								// },
-								// stabilization: {
-								// 	iterations: 200,
-								// 	fit: true
-								// }
-							}
-						};
-
+						let options = this._config.visNetworkConfig || {};
 						const container = this._container;
 						this._data = {
 							nodes: new vis.DataSet(Object.values(this._nodes)),
@@ -440,12 +398,12 @@ export default class NeoVis {
 						this._network = new vis.Network(container, this._data, options);
 					}
 					this._consoleLog('completed');
-					// setTimeout(
-					// 	() => {
-					// 		this._network.stopSimulation();
-					// 	},
-					// 	10000
-					// );
+					setTimeout(
+						() => {
+							this._network.stopSimulation();
+						},
+						10000
+					);
 					this._events.generateEvent(CompletionEvent, { record_count: recordCount });
 
 					let neoVis = this;
